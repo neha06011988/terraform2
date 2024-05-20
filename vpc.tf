@@ -6,13 +6,9 @@ module "label_vpc" {
   attributes = ["main"]
 }
 
-resource "aws_vpc" "main" {
-  cidr_block           = var.vpc_cidr
-  enable_dns_support   = true
-  enable_dns_hostnames = true
-  tags                 = module.label_vpc.tags
+resource "aws_subnet" "private" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = module.subnet_cidr.ipv4_subnet_cidrs[1]
+  availability_zone = data.aws_availability_zones.available.names[0] # Dynamic AZ
+  tags             = module.private_subnet.tags
 }
-
-# =========================
-# Create your subnets here
-# =========================
