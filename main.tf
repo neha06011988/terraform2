@@ -5,10 +5,11 @@ module "base_label" {
 }
 
 module "subnet_cidr" {
-  source          = "hashicorp/subnets/cidr"
-  version         = "1.0.0"  # Update to the latest version
-  vpc_cidr_block  = var.vpc_cidr
-  subnet_prefixes = ["24", "24"] # Two /24 subnets
+  source   = "hashicorp/subnets/cidr"
+  version  = "1.0.0"
+  
+  base_cidr_block = var.vpc_cidr
+  networks = ["public", "private"]  # Defining two networks for public and private subnets
 }
 
 module "public_subnet" {
