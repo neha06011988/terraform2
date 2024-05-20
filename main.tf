@@ -9,10 +9,14 @@ module "subnet_cidr" {
   version  = "1.0.0"
   
   base_cidr_block = var.vpc_cidr
-  networks = {
-    public = {}
-    private = {}
-  }
+  networks = [
+    {
+      name = "public"
+    },
+    {
+      name = "private"
+    }
+  ]
 }
 
 module "public_subnet" {
